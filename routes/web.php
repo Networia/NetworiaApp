@@ -6,6 +6,7 @@ use App\Http\Controllers\demo\inputController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StaterkitController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\BankaccountController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TestController;
 
@@ -30,6 +31,18 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('layouts/full', [StaterkitController::class, 'layout_full'])->middleware('password.confirm')->name('layout-full'); // check password after contue
     Route::get('layouts/blank', [StaterkitController::class, 'layout_blank'])->middleware('verified')->name('layout-blank');
+
+    Route::prefix('bankaccount')->group(function () {
+        Route::get('', [BankaccountController::class , 'index'])->name('bankaccount');
+        Route::get('api', [BankaccountController::class , 'api'])->name('bankaccount.api');
+        Route::get('select', [BankaccountController::class , 'list_select'])->name('bankaccount.list_select');
+        Route::get('select/product', [BankaccountController::class , 'list_select_product'])->name('product.list_select'); // just for bankaccount
+        Route::get('create', [BankaccountController::class , 'create'])->name('bankaccount.create');
+        Route::post('store', [BankaccountController::class , 'store'])->name('bankaccount.store');
+        Route::get('edit/{id}', [BankaccountController::class , 'edit'])->name('bankaccount.edit');
+        Route::post('update/{id}', [BankaccountController::class , 'update'])->name('bankaccount.update');
+    });
+
 });
 
 // locale Route
